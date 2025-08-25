@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Festa Robotica</title>
+  <style>
+    
+  </style>
+</head>
+<body>
+  <h1>E' qui la festa, alza il volume!</h1>
+  <div class="robot">
+    <div class="antenna"></div>
+    <div class="head">
+      <div class="eye left"></div>
+      <div class="eye right"></div>
+      <div class="mouth"></div>
+    </div>
+    <div class="body">
+      <div class="arm left"></div>
+      <div class="arm right"></div>
+    </div>
+    <div class="legs">
+      <div class="leg left"></div>
+      <div class="leg right"></div>
+    </div>
+  </div>
+
+  <audio id="song" src="song.mp3"></audio>
+  <button onclick="playSong()">clicca qui</button>
+
+  <script>
+    function playSong() {
+      const audio = document.getElementById("song");
+      audio.play();
+
+      const arms = document.querySelectorAll('.arm');
+      const legs = document.querySelectorAll('.leg');
+      const robot = document.querySelector('.robot');
+      const head = document.querySelector('.head');
+
+      const poses = ['pose1','pose2','pose3','pose4'];
+      let currentPose = 0;
+
+      setInterval(() => {
+        arms[0].style.animation = `robo-move-left-${poses[currentPose]} 1.5s infinite steps(2, end)`;
+        arms[1].style.animation = `robo-move-right-${poses[currentPose]} 1.5s infinite steps(2, end)`;
+        legs[0].style.animation = `robo-step-left-${poses[currentPose]} 1.5s infinite steps(2, end)`;
+        legs[1].style.animation = `robo-step-right-${poses[currentPose]} 1.5s infinite steps(2, end)`;
+
+        // Movimento busto e testa
+        robot.style.animation = `body-move 1.5s infinite steps(2, end)`;
+        head.style.animation = `head-move 1.5s infinite steps(2, end)`;
+
+        currentPose = (currentPose+1)%poses.length;
+      }, 1500);
+    }
+   
+  </script> 
+  <link rel="stylesheet" href="style.css">
+</body>
+</html>
